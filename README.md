@@ -1,5 +1,6 @@
 # Funny Roulette
-[![Vue](/public/images/roulette-summary)](https://google.co.kr/)
+![Roulette][summary]
+[summary]: https://github.com/gitsunmin/Funny-Roulette/blob/main/public/images/roulette-summary.jpg?raw=true
 ## feature
 - 사람 이름 또는 번호를 등록할 수 있다.
 - 등록된 사람을 수정 또는 삭제를 할 수 있다.
