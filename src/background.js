@@ -1,7 +1,6 @@
 import chrome from "webextension-polyfill";
 // app's serviceWorker
 console.log('background.js');
-console.log('DOM:', document);
 let color = '#3aa757';
 chrome.runtime.onInstalled.addListener(({ reason }) => {
   if (reason === "install") {
