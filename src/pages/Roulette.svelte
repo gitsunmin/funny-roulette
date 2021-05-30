@@ -1,4 +1,5 @@
 <script>
+  export let userList = [];
   import { beforeUpdate, afterUpdate, onMount, onDestroy } from "svelte";
   import browser from "webextension-polyfill";
   const { console } = browser.extension.getBackgroundPage();
@@ -7,6 +8,16 @@
   });
 </script>
 
-<main>Roulette Page</main>
+<section class="roultte">
+    {#each userList as user (user.id)}
+        { user.name }
+    {/each}
+</section>
 
-<style></style>
+<style>
+.roultte {
+    background-color: teal;
+    color: thistle;
+    height: 170px;
+}
+</style>

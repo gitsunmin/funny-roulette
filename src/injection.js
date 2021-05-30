@@ -1,8 +1,12 @@
 import browser from "webextension-polyfill";
 // https://developer.chrome.com/docs/extensions/mv3/content_scripts/
-
-// const key = "background";
-console.log('injection.js');
-// browser.storage.local.get(key).then((data) => {
-//   document.body.style = `background: url(${data[key]})`;
-// });
+console.log("Chrome Extension ready to go!");
+// chrome.runtime.onMessage.addListener(replace);
+//Replace
+// function replace(message, sender, sendresponse) {
+//   console.log(message);
+//   let paragraphs = document.getElementsByTagName("p");
+//   for (elt of paragraphs) {
+//     elt.innerText = message;
+//   }
+// }
