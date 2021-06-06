@@ -2,8 +2,14 @@
     
 </script>
 
-<main>
+<section class="error">
     Error Page
-</main>
+</section>
 
-<style></style>
+<style>
+.error {
+    height: 228px;
+    background-color: red;
+    color: white;
+}
+</style>

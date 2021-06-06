@@ -1,9 +1,15 @@
 <script>
-    
+  export let selectedUser = {};
 </script>
 
-<main>
-    Resulte Page
-</main>
+<section class="resulte">
+    Resulte: { selectedUser.name }
+</section>
 
-<style></style>
+<style>
+.resulte {
+    /* color: #f5d042; */
+    height: 100%;
+    background-color: #f5d042;
+}
+</style>

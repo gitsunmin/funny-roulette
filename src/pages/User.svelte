@@ -28,8 +28,8 @@
 </script>
 
 <section class="user-container">
-  {#each userList as user (user.id)}
-    <div class="user">{user.name}</div>
+  {#each userList as user, index (user.id)}
+    <div class="user">{index + 1}. {user.name}</div>
   {/each}
 </section>
 
@@ -56,7 +56,7 @@
     background-color: #f5d042;
     color: #0a174e;
     border-radius: 4px;
-    border: 1px solid black;
+    border: 1px solid #0a174e;
     padding: 1px;
     margin: 2px 3px;
     font-weight: bold;

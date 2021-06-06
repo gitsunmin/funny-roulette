@@ -7,3 +7,8 @@ export const uuidv4 = () => {
 };
 
 export const deepCopy = (value) => JSON.parse(JSON.stringify(value));
+
+
+export const rand = (start, end) => {
+  return Math.floor((Math.random() * (end-start+1)) + start);
+}

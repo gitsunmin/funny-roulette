@@ -1,10 +1,12 @@
 <script>
   import browser from "webextension-polyfill";
   import User from "./pages/User.svelte";
+  import MyInfo from "./pages/myInfo.svelte";
   import Roulette from "./pages/Roulette.svelte";
   import Resulte from "./pages/Resulte.svelte";
   import Error from "./pages/Error.svelte";
   import { uuidv4, deepCopy } from "../api/commonFunctions.js";
+import { empty } from "svelte/internal";
   const { console } = browser.extension.getBackgroundPage();
   let userList = [];
   browser.storage.local.get(["userList"]).then((res) => {
@@ -13,6 +15,7 @@
 
   let pageCount = 1;
   let userName = "";
+  let selectedUser = {};
   function goPage(count) {
     pageCount = count;
   }
@@ -27,6 +30,10 @@
   }
   function onInputUserName({ detail: value }) {
     userName = value;
+  }
+  function onSelectedUser({ detail: user }) {
+    console.log('user:', user);
+    selectedUser = user;
   }
   function onClearUser() {
     browser.storage.local.clear();
@@ -45,9 +52,11 @@
       on:onAddUser={onAddUser}
       on:onInputUserName={onInputUserName}
     />
-    <Roulette {userList} />
+    <MyInfo />
+  {:else if pageCount === 2}
+    <Roulette {userList} on:onSelectedUser={onSelectedUser} />
   {:else if pageCount === 3}
-    <Resulte />
+    <Resulte {selectedUser} />
   {:else}
     <Error />
   {/if}
@@ -58,7 +67,7 @@
     {#if pageCount > 0}
       <button on:click={goPage(pageCount - 1)}>Prev</button>
     {/if}
-    {#if pageCount < 3}
+    {#if pageCount < 4}
       <button on:click={goPage(pageCount + 1)}>Next</button>
     {/if}
     <button on:click={onClearUser}>Clear</button>
