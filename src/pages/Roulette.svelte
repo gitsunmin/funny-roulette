@@ -3,6 +3,7 @@
   import { beforeUpdate, afterUpdate, onMount, onDestroy, createEventDispatcher } from "svelte";
   import * as easing from 'svelte/easing';
   import { tweened } from "svelte/motion";
+  import { fly } from "svelte/transition";
   import browser from "webextension-polyfill";
   const dispatch = createEventDispatcher();
 
@@ -11,16 +12,27 @@
     duration: 2000, // 값을 업데이트 하는 시간
     easing: easing['circOut'], // Same as `linear`, 타이밍 함수
   });
+  const pageOutAnimation = {
+    y: 50,
+    duration: 200,
+  }
   $: changedStore = $angle.toFixed(2);
+  let isSelectingUser = false;
   const rand = (start, end) => Math.floor((Math.random() * (end-start+1)) + start);
   const doTurnRoulette = () => {
-    const randomAngle = rand(0, 360);
-    $angle = (360 * 4) + randomAngle;
-    const userIndex = parseInt((randomAngle + betweenDeg) / (betweenDeg * 2), 10);
-    let selectedUser = {};
-    if (userIndex) selectedUser = userList[countUserList - userIndex];
-    else selectedUser = userList[0];
-    dispatch('onSelectedUser', selectedUser);
+    if (!isSelectingUser) {
+      isSelectingUser = true;
+      const randomAngle = rand(0, 360);
+      $angle = (360 * 4) + randomAngle;
+      const userIndex = parseInt((randomAngle + betweenDeg) / (betweenDeg * 2), 10);
+      let selectedUser = {};
+      if (userIndex) selectedUser = userList[countUserList - userIndex];
+      else selectedUser = userList[0];
+      setTimeout(() => {
+        isSelectingUser = false;
+        dispatch('onSelectedUser', selectedUser);
+      }, 2400);
+    }
   }
   onMount(() => { console.log('tab number 2'); });
 
@@ -42,7 +54,7 @@
   }
 </script>
 
-<section class="roultte">
+<section class="roultte" out:fly={pageOutAnimation}>
   <div class="container">
     <!-- arrow -->
     <div style="arrow">
@@ -52,10 +64,7 @@
       <!-- line -->
       {#each lineDegs as deg (deg)}
         {#if countUserList !== 1}
-          <div
-            class={`line`}
-            style={`transform: rotate(${deg}deg);`}
-          />
+          <div class={`line`} style={`transform: rotate(${deg}deg);`} />
         {/if}
       {/each}
       <!-- content -->
@@ -63,12 +72,12 @@
         <div
           class={`content`}
           style={`transform: rotate(${user.deg}deg); font-size:${user.fontSize}`}
-          >
+        >
           {index + 1}
         </div>
       {/each}
     </div>
-    <button class="trigger" on:click={doTurnRoulette}>뽑기</button>
+    <button class="trigger" on:click={doTurnRoulette}>Start</button>
   </div>
 </section>
 
@@ -130,7 +139,8 @@
     text-align: center;
   }
   .trigger {
-    margin-top: 20px;
+    margin-top: 30px;
+    margin-left: 20px;
     font-size: 30px;
     border-radius: 15px;
     padding: 10px 20px;

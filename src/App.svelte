@@ -1,12 +1,13 @@
 <script>
   import browser from "webextension-polyfill";
+  import { fly } from "svelte/transition";
   import User from "./pages/User.svelte";
+  import UserController from "./pages/UserController.svelte";
   import MyInfo from "./pages/myInfo.svelte";
   import Roulette from "./pages/Roulette.svelte";
   import Resulte from "./pages/Resulte.svelte";
   import Error from "./pages/Error.svelte";
-  import { uuidv4, deepCopy } from "../api/commonFunctions.js";
-import { empty } from "svelte/internal";
+  import { uuidv4, deepCopy, reload } from "../api/commonFunctions.js";
   const { console } = browser.extension.getBackgroundPage();
   let userList = [];
   browser.storage.local.get(["userList"]).then((res) => {
@@ -32,12 +33,23 @@ import { empty } from "svelte/internal";
     userName = value;
   }
   function onSelectedUser({ detail: user }) {
-    console.log('user:', user);
     selectedUser = user;
+    goPage(3);
+  }
+  function onRemoveUser({ detail: user }) {
+    const removedIndex = userList.findIndex((u) => u.id === user.id);
+    if (removedIndex > -1) {
+      userList.splice(removedIndex, 1);
+      browser.storage.local.set({ userList });
+    }
+    reload();
   }
   function onClearUser() {
     browser.storage.local.clear();
-    userList = [];
+    reload();
+  }
+  function goRoulettePage() {
+    goPage(2);
   }
 </script>
 
@@ -51,8 +63,12 @@ import { empty } from "svelte/internal";
       {userName}
       on:onAddUser={onAddUser}
       on:onInputUserName={onInputUserName}
+      on:onRemoveUser={onRemoveUser}
     />
-    <MyInfo />
+    <UserController
+      on:onClearUser={onClearUser}
+      on:goRoulettePage={goRoulettePage}
+    />
   {:else if pageCount === 2}
     <Roulette {userList} on:onSelectedUser={onSelectedUser} />
   {:else if pageCount === 3}
@@ -63,7 +79,7 @@ import { empty } from "svelte/internal";
 </section>
 
 <footer>
-  <span>
+  <!-- <span>
     {#if pageCount > 0}
       <button on:click={goPage(pageCount - 1)}>Prev</button>
     {/if}
@@ -71,13 +87,15 @@ import { empty } from "svelte/internal";
       <button on:click={goPage(pageCount + 1)}>Next</button>
     {/if}
     <button on:click={onClearUser}>Clear</button>
-  </span>
+  </span> -->
+  <MyInfo />
 </footer>
 
 <style>
   header {
     margin: 0px;
     padding: 5px 0px;
+    height: 25px;
     background-color: #f5d042;
     text-align: center;
   }
@@ -88,12 +106,12 @@ import { empty } from "svelte/internal";
     background-color: #0a174e;
     margin: 0px;
     padding: 10px 0px 0px 0px;
-    height: 100%;
+    height: calc(100% - 35px);
   }
   footer {
     margin: 0px;
     padding: 0px;
-    height: 40px;
+    height: 35px;
     background-color: #f5d042;
   }
 </style>

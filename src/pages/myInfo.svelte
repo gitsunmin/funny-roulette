@@ -25,8 +25,7 @@
 
 <style>
   .my-info {
-    height: 170px;
-    /* color: #f5d042; */
-    background-color: white;
+    height: 100%;
+    color: #0a174e;
   }
 </style>

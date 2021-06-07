@@ -12,3 +12,7 @@ export const deepCopy = (value) => JSON.parse(JSON.stringify(value));
 export const rand = (start, end) => {
   return Math.floor((Math.random() * (end-start+1)) + start);
 }
+
+export const reload = () => {
+  window.location.href = "index.html";
+}

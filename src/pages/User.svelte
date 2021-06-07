@@ -15,9 +15,8 @@
   const dispatch = createEventDispatcher();
 
   const onAddUser = (event) => {
-    const { keyCode, isComposing } = event;
+    const { keyCode } = event;
     if (13 === keyCode && userName) {
-      // Enter
       dispatch("onAddUser", userName);
       userName = "";
     }
@@ -25,11 +24,16 @@
   const onInput = (event) => {
     dispatch("onInputUserName", event.target.value);
   };
+  const onRemoveUser = (user) => {
+    dispatch("onRemoveUser", user);
+  };
 </script>
 
 <section class="user-container">
   {#each userList as user, index (user.id)}
-    <div class="user">{index + 1}. {user.name}</div>
+    <div class="user" on:click={onRemoveUser(user)}>
+      {index + 1}. {user.name}
+    </div>
   {/each}
 </section>
 
@@ -37,6 +41,7 @@
   id="userinput"
   class="user-input"
   type="text"
+  placeholder="Please Press Enter"
   bind:value={userName}
   on:input={onInput}
   on:keydown={onAddUser}
@@ -50,7 +55,7 @@
     align-content: flex-start;
     color: white;
     overflow-y: scroll;
-    height: 190px;
+    height: 170px;
   }
   .user-container > .user {
     background-color: #f5d042;
@@ -61,6 +66,29 @@
     margin: 2px 3px;
     font-weight: bold;
     height: 20px;
+    cursor: pointer;
+  }
+  .user-container > .user:hover {
+    background-color: #0a174e;
+    color: #f5d042;
+    border-radius: 4px;
+    border: 1px solid #f5d042;
+    padding: 1px;
+    margin: 2px 3px;
+    font-weight: bold;
+    height: 20px;
+    cursor: pointer;
+  }
+  .user-container > .user:hover {
+    background-color: #0a174e;
+    color: #f5d042;
+    border-radius: 4px;
+    border: 1px solid #f5d042;
+    padding: 1px;
+    margin: 2px 3px;
+    font-weight: bold;
+    height: 20px;
+    cursor: pointer;
   }
   .user-input {
     margin-top: 5px;
