@@ -6,6 +6,7 @@
 - 등록된 사람들 중에서 Roulette을 돌려 한 명을 선택할 수 있다.
 ## Flow
 - User Page
+    ![Roulette](https://raw.githubusercontent.com/gitsunmin/Funny-Roulette/main/public/images/sample/userPage.png "이렇게 돌려보세요");
     1. 사람 이름 또는 번호를 등록
 - Roulette Page
     1. Roulette 시작 버튼

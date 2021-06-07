@@ -49,7 +49,7 @@
     reload();
   }
   function goRoulettePage() {
-    goPage(2);
+    if (userList.length) goPage(2);
   }
 </script>
 
