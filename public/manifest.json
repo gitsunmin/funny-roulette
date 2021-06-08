@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "funny roulette",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "permissions": ["storage", "experimental", "tts"],
     "background": {
       "scripts": ["build/background.js"],
