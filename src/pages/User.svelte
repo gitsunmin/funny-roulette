@@ -27,6 +27,9 @@
   const onRemoveUser = (user) => {
     dispatch("onRemoveUser", user);
   };
+  onMount(() => {
+    userName = "";
+  })
 </script>
 
 <section class="user-container">
@@ -42,6 +45,7 @@
   class="user-input"
   type="text"
   placeholder="Please Press Enter"
+  maxlength="20"
   bind:value={userName}
   on:input={onInput}
   on:keydown={onAddUser}

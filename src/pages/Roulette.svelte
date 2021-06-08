@@ -3,24 +3,20 @@
   import { beforeUpdate, afterUpdate, onMount, onDestroy, createEventDispatcher } from "svelte";
   import * as easing from 'svelte/easing';
   import { tweened } from "svelte/motion";
-  import { fly } from "svelte/transition";
   import browser from "webextension-polyfill";
+  import BackButton from '../components/BackButton.svelte';
+  import { rand } from "../api/commonFunctions";
   const dispatch = createEventDispatcher();
-
   const { console } = browser.extension.getBackgroundPage();
   const angle = tweened(0, {
     duration: 2000, // 값을 업데이트 하는 시간
     easing: easing['circOut'], // Same as `linear`, 타이밍 함수
   });
-  const pageOutAnimation = {
-    y: 50,
-    duration: 200,
-  }
   $: changedStore = $angle.toFixed(2);
   let isSelectingUser = false;
-  const rand = (start, end) => Math.floor((Math.random() * (end-start+1)) + start);
   const doTurnRoulette = () => {
     if (!isSelectingUser) {
+      browser.tts.speak('둥 둥 둥 둥 둥 띡', { lang: "ko-kr", pitch: 1.2 });
       isSelectingUser = true;
       const randomAngle = rand(0, 360);
       $angle = (360 * 4) + randomAngle;
@@ -34,7 +30,7 @@
       }, 2400);
     }
   }
-  onMount(() => { console.log('tab number 2'); });
+  const onGoBackPage = () => { dispatch('onGoBackPage'); }
 
   const lineDegs = [];
   const contentDegs = [];
@@ -54,7 +50,8 @@
   }
 </script>
 
-<section class="roultte" out:fly={pageOutAnimation}>
+<section class="roultte">
+  <BackButton on:click={onGoBackPage}/>
   <div class="container">
     <!-- arrow -->
     <div style="arrow">
@@ -113,7 +110,7 @@
   .arrow-object {
     position: absolute;
     z-index: 9999;
-    top: 40px;
+    top: 65px;
     left: 115px;
     width: 20px;
     height: 25px;
@@ -139,7 +136,7 @@
     text-align: center;
   }
   .trigger {
-    margin-top: 30px;
+    margin-top: 15px;
     margin-left: 20px;
     font-size: 30px;
     border-radius: 15px;

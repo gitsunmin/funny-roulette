@@ -1,19 +1,18 @@
 <script>
   import browser from "webextension-polyfill";
-  import { fly } from "svelte/transition";
   import User from "./pages/User.svelte";
   import UserController from "./pages/UserController.svelte";
   import MyInfo from "./pages/myInfo.svelte";
   import Roulette from "./pages/Roulette.svelte";
   import Resulte from "./pages/Resulte.svelte";
   import Error from "./pages/Error.svelte";
-  import { uuidv4, deepCopy, reload } from "../api/commonFunctions.js";
-  const { console } = browser.extension.getBackgroundPage();
+  // import { beforeUpdate, afterUpdate, onMount, onDestroy, createEventDispatcher } from "svelte";
+  import { uuidv4, deepCopy, reload } from "./api/commonFunctions.js";
+  // const { console } = browser.extension.getBackgroundPage();
   let userList = [];
   browser.storage.local.get(["userList"]).then((res) => {
     userList = deepCopy(res.userList);
   });
-
   let pageCount = 1;
   let userName = "";
   let selectedUser = {};
@@ -51,6 +50,9 @@
   function goRoulettePage() {
     if (userList.length) goPage(2);
   }
+  function onGoBackPage() {
+    pageCount -= 1;
+  }
 </script>
 
 <header>
@@ -70,24 +72,15 @@
       on:goRoulettePage={goRoulettePage}
     />
   {:else if pageCount === 2}
-    <Roulette {userList} on:onSelectedUser={onSelectedUser} />
+    <Roulette {userList} on:onSelectedUser={onSelectedUser} on:onGoBackPage={onGoBackPage}/>
   {:else if pageCount === 3}
-    <Resulte {selectedUser} />
+    <Resulte {selectedUser} on:onGoBackPage={onGoBackPage}/>
   {:else}
     <Error />
   {/if}
 </section>
 
 <footer>
-  <!-- <span>
-    {#if pageCount > 0}
-      <button on:click={goPage(pageCount - 1)}>Prev</button>
-    {/if}
-    {#if pageCount < 4}
-      <button on:click={goPage(pageCount + 1)}>Next</button>
-    {/if}
-    <button on:click={onClearUser}>Clear</button>
-  </span> -->
   <MyInfo />
 </footer>
 

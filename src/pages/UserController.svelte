@@ -29,7 +29,7 @@
   <div class="row">
     Go to roulette:
     Click the <button class="go-page-btn" on:click={goRoulettePage}>
-      go
+      go ➡
     </button>
   </div>
 </section>
