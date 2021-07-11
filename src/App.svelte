@@ -10,9 +10,14 @@
   import { uuidv4, deepCopy, reload } from "./api/commonFunctions.js";
   // const { console } = browser.extension.getBackgroundPage();
   let userList = [];
-  browser.storage.local.get(["userList"]).then((res) => {
-    userList = deepCopy(res.userList);
-  });
+  try {
+    browser.storage.local.get(["userList"]).then((res) => {
+      userList = deepCopy(res.userList);
+    });
+  } catch (error) {
+    console.error(error);
+    reload();
+  }
   let pageCount = 1;
   let userName = "";
   let selectedUser = {};
