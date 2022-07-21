@@ -1,11 +1,8 @@
 <script>
-  import { beforeUpdate, afterUpdate, onMount, createEventDispatcher } from "svelte";
+  import { createEventDispatcher } from "svelte";
   import browser from "webextension-polyfill";
   const { console } = browser.extension.getBackgroundPage();
   const dispatch = createEventDispatcher();
-  onMount(() => {
-    console.log(222);
-  });
   const onClearUser = () => {
     dispatch('onClearUser');
   }
@@ -36,7 +33,7 @@
 <style>
   .user-controller {
     height: 162px;
-    color: #f5d042;
+    color: var(--primary);
   }
 
   .user-controller > h2 {
@@ -49,7 +46,7 @@
   }
 
   .user {
-    background-color: #f5d042;
+    background-color: var(--primary);
     color: #0a174e;
     border-radius: 4px;
     border: 1px solid #0a174e;

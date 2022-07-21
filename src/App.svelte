@@ -1,14 +1,17 @@
 <script>
   import browser from "webextension-polyfill";
+
+  import Layout from "./layout/index.svelte";
   import User from "./pages/User.svelte";
   import UserController from "./pages/UserController.svelte";
-  import MyInfo from "./pages/myInfo.svelte";
   import Roulette from "./pages/Roulette.svelte";
   import Resulte from "./pages/Resulte.svelte";
   import Error from "./pages/Error.svelte";
-  // import { beforeUpdate, afterUpdate, onMount, onDestroy, createEventDispatcher } from "svelte";
-  import { uuidv4, deepCopy, reload } from "./api/commonFunctions.js";
-  // const { console } = browser.extension.getBackgroundPage();
+
+  import { uuidv4, deepCopy, reload } from "./utils/index.js";
+
+  import "./style/index.css";
+
   let userList = [];
   try {
     browser.storage.local.get(["userList"]).then((res) => {
@@ -60,56 +63,39 @@
   }
 </script>
 
-<header>
-  <h1>Funny Roulette</h1>
-</header>
-<section class="pages">
-  {#if pageCount === 1}
-    <User
-      {userList}
-      {userName}
-      on:onAddUser={onAddUser}
-      on:onInputUserName={onInputUserName}
-      on:onRemoveUser={onRemoveUser}
-    />
-    <UserController
-      on:onClearUser={onClearUser}
-      on:goRoulettePage={goRoulettePage}
-    />
-  {:else if pageCount === 2}
-    <Roulette {userList} on:onSelectedUser={onSelectedUser} on:onGoBackPage={onGoBackPage}/>
-  {:else if pageCount === 3}
-    <Resulte {selectedUser} on:onGoBackPage={onGoBackPage}/>
-  {:else}
-    <Error />
-  {/if}
-</section>
-
-<footer>
-  <MyInfo />
-</footer>
+<Layout>
+  <section class="pages">
+    {#if pageCount === 1}
+      <User
+        {userList}
+        {userName}
+        on:onAddUser={onAddUser}
+        on:onInputUserName={onInputUserName}
+        on:onRemoveUser={onRemoveUser}
+      />
+      <UserController
+        on:onClearUser={onClearUser}
+        on:goRoulettePage={goRoulettePage}
+      />
+    {:else if pageCount === 2}
+      <Roulette
+        {userList}
+        on:onSelectedUser={onSelectedUser}
+        on:onGoBackPage={onGoBackPage}
+      />
+    {:else if pageCount === 3}
+      <Resulte {selectedUser} on:onGoBackPage={onGoBackPage} />
+    {:else}
+      <Error />
+    {/if}
+  </section>
+</Layout>
 
 <style>
-  header {
-    margin: 0px;
-    padding: 5px 0px;
-    height: 25px;
-    background-color: #f5d042;
-    text-align: center;
-  }
-  header > h1 {
-    margin: 0px;
-  }
   section {
     background-color: #0a174e;
     margin: 0px;
     padding: 10px 0px 0px 0px;
     height: calc(100% - 35px);
-  }
-  footer {
-    margin: 0px;
-    padding: 0px;
-    height: 35px;
-    background-color: #f5d042;
   }
 </style>

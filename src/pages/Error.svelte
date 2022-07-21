@@ -1,15 +1,12 @@
 <script>
-    
 </script>
 
-<section class="error">
-    Error Page
-</section>
+<section class="error">Error Page</section>
 
 <style>
-.error {
+  .error {
     height: 228px;
     background-color: red;
     color: white;
-}
+  }
 </style>

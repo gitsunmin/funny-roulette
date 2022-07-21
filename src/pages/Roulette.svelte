@@ -1,41 +1,49 @@
 <script>
   export let userList = [];
-  import { beforeUpdate, afterUpdate, onMount, onDestroy, createEventDispatcher } from "svelte";
-  import * as easing from 'svelte/easing';
+  import { createEventDispatcher } from "svelte";
+  import * as easing from "svelte/easing";
   import { tweened } from "svelte/motion";
   import browser from "webextension-polyfill";
-  import BackButton from '../components/BackButton.svelte';
-  import { rand } from "../api/commonFunctions";
+  import BackButton from "../components/BackButton.svelte";
+  import { rand } from "../utils/index";
+
   const dispatch = createEventDispatcher();
-  const { console } = browser.extension.getBackgroundPage();
   const angle = tweened(0, {
     duration: 2000, // 값을 업데이트 하는 시간
-    easing: easing['circOut'], // Same as `linear`, 타이밍 함수
+    easing: easing["circOut"], // Same as `linear`, 타이밍 함수
   });
+
   $: changedStore = $angle.toFixed(2);
   let isSelectingUser = false;
+
   const doTurnRoulette = () => {
     if (!isSelectingUser) {
-      browser.tts.speak('둥 둥 둥 둥 둥 띡', { lang: "ko-kr", pitch: 1.2 });
+      browser.tts.speak("둥 둥 둥 둥 둥 띡", { lang: "ko-kr", pitch: 1.2 });
       isSelectingUser = true;
       const randomAngle = rand(0, 360);
-      $angle = (360 * 4) + randomAngle;
-      const userIndex = parseInt((randomAngle + betweenDeg) / (betweenDeg * 2), 10);
+      $angle = 360 * 4 + randomAngle;
+      const userIndex = parseInt(
+        (randomAngle + betweenDeg) / (betweenDeg * 2),
+        10
+      );
       let selectedUser = {};
       if (userIndex) selectedUser = userList[countUserList - userIndex];
       else selectedUser = userList[0];
       setTimeout(() => {
         isSelectingUser = false;
-        dispatch('onSelectedUser', selectedUser);
+        dispatch("onSelectedUser", selectedUser);
       }, 2400);
     }
-  }
-  const onGoBackPage = () => { dispatch('onGoBackPage'); }
+  };
+
+  const onGoBackPage = () => {
+    dispatch("onGoBackPage");
+  };
 
   const lineDegs = [];
   const contentDegs = [];
   const countUserList = userList.length;
-  const betweenDeg = countUserList ? (360 / countUserList) / 2 : 360;
+  const betweenDeg = countUserList ? 360 / countUserList / 2 : 360;
   for (let index = 0; index < countUserList; index += 1) {
     const user = userList[index];
     const eachDeg = (360 / countUserList) * index;
@@ -51,7 +59,7 @@
 </script>
 
 <section class="roultte">
-  <BackButton on:click={onGoBackPage}/>
+  <BackButton on:click={onGoBackPage} />
   <div class="container">
     <!-- arrow -->
     <div style="arrow">
@@ -95,7 +103,7 @@
     width: 240px;
     height: 240px;
     border-radius: 50%;
-    background: #f5d042;
+    background: var(--primary);
     border: 3px solid #0a174e;
     position: relative;
     left: 12px;
@@ -142,7 +150,7 @@
     border-radius: 15px;
     padding: 10px 20px;
     border: 3px solid #0a174e;
-    background-color: #f5d042;
+    background-color: var(--primary);
     color: #0a174e;
     cursor: pointer;
   }

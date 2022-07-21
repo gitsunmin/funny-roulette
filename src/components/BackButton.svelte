@@ -12,7 +12,7 @@
 <style>
   .back-btn {
     background-color: #0a174e;
-    color: #f5d042;
+    color: var(--primary);
     margin-left: 5px;
     font-size: 12pt;
     padding: 0px;

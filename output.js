@@ -28,12 +28,12 @@ import Resulte from "./pages/Resulte.svelte";
 import Error from "./pages/Error.svelte";
 
 // import { beforeUpdate, afterUpdate, onMount, onDestroy, createEventDispatcher } from "svelte";
-import { uuidv4, deepCopy, reload } from "./api/commonFunctions.js";
+import { uuidv4, deepCopy, reload } from "./src/utils/index";
 
 function add_css() {
 	var style = element("style");
 	style.id = "svelte-qcubvj-style";
-	style.textContent = "header.svelte-qcubvj.svelte-qcubvj{margin:0px;padding:5px 0px;height:25px;background-color:#f5d042;text-align:center}header.svelte-qcubvj>h1.svelte-qcubvj{margin:0px}section.svelte-qcubvj.svelte-qcubvj{background-color:#0a174e;margin:0px;padding:10px 0px 0px 0px;height:calc(100% - 35px)}footer.svelte-qcubvj.svelte-qcubvj{margin:0px;padding:0px;height:35px;background-color:#f5d042}";
+	style.textContent = "header.svelte-qcubvj.svelte-qcubvj{margin:0px;padding:5px 0px;height:25px;background-color:var(--primary);text-align:center}header.svelte-qcubvj>h1.svelte-qcubvj{margin:0px}section.svelte-qcubvj.svelte-qcubvj{background-color:#0a174e;margin:0px;padding:10px 0px 0px 0px;height:calc(100% - 35px)}footer.svelte-qcubvj.svelte-qcubvj{margin:0px;padding:0px;height:35px;background-color:var(--primary)}";
 	append(document.head, style);
 }
 

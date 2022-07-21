@@ -2,14 +2,7 @@
   export let userList = [];
   export let userName = "";
   import { createEventDispatcher } from "svelte";
-  import {
-    beforeUpdate,
-    afterUpdate,
-    onMount,
-    onDestroy,
-    getContext,
-    setContext,
-  } from "svelte";
+  import { onMount } from "svelte";
   import browser from "webextension-polyfill";
   const { console } = browser.extension.getBackgroundPage();
   const dispatch = createEventDispatcher();
@@ -29,7 +22,7 @@
   };
   onMount(() => {
     userName = "";
-  })
+  });
 </script>
 
 <section class="user-container">
@@ -62,7 +55,7 @@
     height: 170px;
   }
   .user-container > .user {
-    background-color: #f5d042;
+    background-color: var(--primary);
     color: #0a174e;
     border-radius: 4px;
     border: 1px solid #0a174e;
@@ -74,9 +67,9 @@
   }
   .user-container > .user:hover {
     background-color: #0a174e;
-    color: #f5d042;
+    color: var(--primary);
     border-radius: 4px;
-    border: 1px solid #f5d042;
+    border: 1px solid var(--primary);
     padding: 1px;
     margin: 2px 3px;
     font-weight: bold;
@@ -85,9 +78,9 @@
   }
   .user-container > .user:hover {
     background-color: #0a174e;
-    color: #f5d042;
+    color: var(--primary);
     border-radius: 4px;
-    border: 1px solid #f5d042;
+    border: 1px solid var(--primary);
     padding: 1px;
     margin: 2px 3px;
     font-weight: bold;

@@ -2,7 +2,7 @@
   import browser from "webextension-polyfill";
   import { tweened } from "svelte/motion";
   import * as easing from "svelte/easing";
-  import BackButton from '../components/BackButton.svelte';
+  import BackButton from "../components/BackButton.svelte";
   import {
     beforeUpdate,
     afterUpdate,
@@ -18,13 +18,17 @@
   });
   $: changedNameSize = $nameSize.toFixed(2);
 
-  afterUpdate(() => { $nameSize = 1; });
+  afterUpdate(() => {
+    $nameSize = 1;
+  });
   browser.tts.speak(`${selectedUser.name}`, { lang: "ko-kr", pitch: 1.2 });
-  const onGoBackPage = () => { dispatch('onGoBackPage'); }
+  const onGoBackPage = () => {
+    dispatch("onGoBackPage");
+  };
 </script>
 
 <section class="resulte">
-  <BackButton on:click={onGoBackPage}/>
+  <BackButton on:click={onGoBackPage} />
   <div
     class="resulte-name"
     style={`transform: scale(${changedNameSize}, ${changedNameSize});`}
@@ -41,9 +45,9 @@
     height: 70px;
     max-height: 70px;
     background-color: #0a174e;
-    border: 1px solid #f5d042;
+    border: 1px solid var(--primary);
     font-size: 40pt;
-    color: #f5d042;
+    color: var(--primary);
     text-align: center;
     border-radius: 12px;
     display: inline-block;
