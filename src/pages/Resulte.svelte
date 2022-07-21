@@ -3,13 +3,7 @@
   import { tweened } from "svelte/motion";
   import * as easing from "svelte/easing";
   import BackButton from "../components/BackButton.svelte";
-  import {
-    beforeUpdate,
-    afterUpdate,
-    onMount,
-    onDestroy,
-    createEventDispatcher,
-  } from "svelte";
+  import { afterUpdate, createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
   export let selectedUser = {};
   const nameSize = tweened(0, {
