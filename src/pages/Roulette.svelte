@@ -104,7 +104,7 @@
     height: 240px;
     border-radius: 50%;
     background: var(--primary);
-    border: 3px solid #0a174e;
+    border: 3px solid var(--secondary);
     position: relative;
     left: 12px;
   }
@@ -122,13 +122,13 @@
     left: 115px;
     width: 20px;
     height: 25px;
-    background-color: #0a174e;
+    background-color: var(--secondary);
     clip-path: polygon(50% 100%, 0 0, 100% 0);
   }
   .line {
     width: 124px;
     height: 2px;
-    background: #0a174e;
+    background: var(--secondary);
     position: absolute;
     transform-origin: left;
     top: 118px;
@@ -137,7 +137,7 @@
   .content {
     /* font-size: 12px; */
     font-weight: bold;
-    color: #0a174e;
+    color: var(--secondary);
     height: 238px;
     position: absolute;
     width: 100%;
@@ -149,9 +149,9 @@
     font-size: 30px;
     border-radius: 15px;
     padding: 10px 20px;
-    border: 3px solid #0a174e;
+    border: 3px solid var(--secondary);
     background-color: var(--primary);
-    color: #0a174e;
+    color: var(--secondary);
     cursor: pointer;
   }
 </style>

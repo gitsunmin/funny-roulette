@@ -9,6 +9,6 @@
 <style>
   .my-info {
     height: 100%;
-    color: #0a174e;
+    color: var(--secondary);
   }
 </style>
