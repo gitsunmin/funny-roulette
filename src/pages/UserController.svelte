@@ -47,9 +47,9 @@
 
   .user {
     background-color: var(--primary);
-    color: #0a174e;
+    color: var(--secondary);
     border-radius: 4px;
-    border: 1px solid #0a174e;
+    border: 1px solid var(--secondary);
     padding: 1px;
     margin: 2px 3px;
     width: 60px;

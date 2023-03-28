@@ -38,7 +38,7 @@
     width: 200px;
     height: 70px;
     max-height: 70px;
-    background-color: #0a174e;
+    background-color: var(--secondary);
     border: 1px solid var(--primary);
     font-size: 40pt;
     color: var(--primary);

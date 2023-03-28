@@ -93,7 +93,7 @@
 
 <style>
   section {
-    background-color: #0a174e;
+    background-color: var(--secondary);
     margin: 0px;
     padding: 10px 0px 0px 0px;
     height: calc(100% - 35px);
